@@ -123,9 +123,9 @@ generate: ; $(info $(M) generating mock...) @ ## Generating mock for changes
 
 .PHONY: docker
 docker: ; $(info $(M) running docker...) @ ## Run docker-compose in background for binary dependency
-	@docker-compose -f docker/docker-compose.yml up -d
+	@docker-compose -f files/etc/docker/docker-compose.yml up -d
 
 .PHONY: docker-stop
 docker-stop: ; $(info $(M) stopping all running docker...) @ ## Stop docker-compose
-	@docker-compose -f docker/docker-compose.yml down
+	@docker-compose -f files/etc/docker/docker-compose.yml down
 

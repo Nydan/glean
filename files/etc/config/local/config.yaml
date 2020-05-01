@@ -11,8 +11,8 @@ Logger:
   ConsoleLevel: 'debug'
   EnableFile: false
 Database:
-  Master: 'user=admin password=qwerty dbname=development host=localhost port=5432 sslmode=disable'
-  Replica: 'user=admin password=qwerty dbname=development host=localhost port=5432 sslmode=disable'
+  Master: 'user=glean password=qwerty dbname=glean_dev host=localhost port=5432 sslmode=disable'
+  Replica: 'user=glean password=qwerty dbname=glean_dev host=localhost port=5432 sslmode=disable'
 Redis:
   Endpoint: 'localhost:6379'
   Timeout: 10

@@ -94,3 +94,4 @@ Temporary Items
 /test/coverage.*
 /go.sum
 /.idea
+/files/etc/docker/postgres_data
