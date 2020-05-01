@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:12.2-alpine
+    volumes:
+      - ./postgres_data/psql:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: influence_dev
+      POSTGRES_USER: influence
+      POSTGRES_PASSWORD: qwerty
+  redis:
+    image: "redis"
+    ports:
+      - "6379:6379"
+  swagger_ui:
+    container_name: inf_swagger_ui
+    image: "swaggerapi/swagger-ui"
+    volumes:
+      - ./swagger:/spec
+    environment:
+      SWAGGER_JSON: /spec/swagger100.json
+    ports:
+      - "8080:8080"
