@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 
 	"github.com/nydan/glean/internal/app"
 	"github.com/nydan/glean/internal/config"
@@ -11,9 +10,6 @@ import (
 )
 
 func main() {
-	fmt.Println("hello")
-
-	// Parse flags
 	env := flag.String("env", environment.Local, "Environment of the app (local, integration, production). Default is local.")
 	flag.Parse()
 

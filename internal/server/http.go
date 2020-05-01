@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/nydan/glean/internal/config"
+	httpctrl "github.com/nydan/glean/internal/controller/http"
 	"github.com/nydan/glean/pkg/slog"
 )
 
@@ -19,14 +20,15 @@ type HTTPServerI interface {
 }
 
 type httpServer struct {
-	srv http.Server
+	srv  http.Server
+	ctrl *httpctrl.Controller
 }
 
 // NewHTTPServer creates new http server
-func NewHTTPServer(cfg config.HTTPServer) HTTPServerI {
+func NewHTTPServer(cfg config.HTTPServer, ctrl *httpctrl.Controller) HTTPServerI {
 	srv := http.Server{
 		Addr:    fmt.Sprintf("%s:%d", cfg.ListenAddress, cfg.Port),
-		Handler: router(),
+		Handler: router(ctrl),
 	}
 	return &httpServer{
 		srv: srv,
@@ -64,12 +66,4 @@ func (h *httpServer) RunHTTP() error {
 
 	slog.Infow("HTTP server shutdown gracefully")
 	return nil
-}
-
-func router() *http.ServeMux {
-	router := http.NewServeMux()
-	router.Handle("/ping", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintln(w, "pong")
-	}))
-	return router
 }
