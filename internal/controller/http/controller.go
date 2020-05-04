@@ -6,11 +6,11 @@ import (
 
 // Controller struct for dependencies
 type Controller struct {
-	Order order.Controller
+	Order *order.Controller
 }
 
-// NewController
-func NewController(o order.Controller) *Controller {
+// NewController creates http controller
+func NewController(o *order.Controller) *Controller {
 	return &Controller{
 		Order: o,
 	}

@@ -1,10 +1,14 @@
 package order
 
 import (
+	"encoding/json"
 	"net/http"
+
+	"github.com/nydan/glean/pkg/slog"
 )
 
 type orderUseCase interface {
+	Create() string
 }
 
 // Controller for order dependency
@@ -23,6 +27,20 @@ func Order(o orderUseCase) *Controller {
 func (c *Controller) Create() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("content-type", "application/json")
-		w.Write([]byte(`{"data":"create order"}`))
+		w.WriteHeader(http.StatusOK)
+
+		data := c.ouc.Create()
+
+		resp := map[string]interface{}{
+			"data": data,
+		}
+
+		buf, err := json.Marshal(resp)
+		if err != nil {
+			slog.Errorw("failed marshal", "error", err)
+			w.WriteHeader(http.StatusInternalServerError)
+		}
+
+		w.Write(buf)
 	}
 }
