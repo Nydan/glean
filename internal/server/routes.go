@@ -12,5 +12,7 @@ func router(c *httpctrl.Controller) *http.ServeMux {
 	router.Handle("/ping", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, "pong")
 	}))
+
+	router.Handle("/order/create", c.Order.Create())
 	return router
 }
