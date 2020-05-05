@@ -1,5 +1,5 @@
 # Glean
-Glean is a web server sample that I had used for more than 3 years writing app server with Go.
+Glean is a web server sample for an app server with Go.
 This code structure aims for a structure that is easy to maintain, testable, 
 works when the code is outlive the engineer life span on the team.
 I personally do not find any critical issue in maintaining the code base perpetually.

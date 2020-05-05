@@ -6,7 +6,7 @@ import (
 	"github.com/nydan/glean/internal/app"
 	"github.com/nydan/glean/internal/config"
 	"github.com/nydan/glean/internal/environment"
-	"github.com/nydan/glean/pkg/slog"
+	"github.com/nydan/glean/pkg/logger"
 )
 
 func main() {
@@ -20,11 +20,11 @@ func main() {
 		panic("Failed to read config: " + err.Error())
 	}
 
-	slog.NewLogger((slog.Configuration)(cfg.Logger))
+	logger.NewLogger((logger.Configuration)(cfg.Logger))
 
 	err = app.HTTPServer(*cfg)
 	if err != nil {
-		slog.Fatalw("Stop serving", "error", err)
+		logger.Fatalw("Stop serving", "error", err)
 	}
 }
 
