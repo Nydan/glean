@@ -7,6 +7,7 @@ I personally do not find any critical issue in maintaining the code base perpetu
 Note: This is not a dogmatic approach and please use your own judgement for your own project. 
 
 # Folder Structure
+Todo: explaining folder structure
 
 # Common Pattern
 Controller layer and usecase layer has a common pattern in this project structure. It has a struct (concrete type) and 

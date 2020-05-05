@@ -4,11 +4,13 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/nydan/glean/internal/entity/order"
 	"github.com/nydan/glean/pkg/slog"
 )
 
 type orderUseCase interface {
 	Create() string
+	Select(id int) (order.Order, error)
 }
 
 // Controller for order dependency
@@ -16,7 +18,7 @@ type Controller struct {
 	ouc orderUseCase
 }
 
-// Order create new order.Controller
+// Order adds dependencies to order controller
 func Order(o orderUseCase) *Controller {
 	return &Controller{
 		ouc: o,
