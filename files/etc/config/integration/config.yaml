@@ -15,5 +15,7 @@ Database:
   Replica: "user=glean password=qwerty dbname=glean_dev host=localhost port=5432 sslmode=disable"
 Redis:
   Endpoint: "localhost:6379"
-  Timeout: 10
-  MaxIdle: 10
+  Timeout: 300
+  ReadTimeout: 300
+  MinIdle: 10
+  PoolSize: 25

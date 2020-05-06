@@ -12,14 +12,17 @@ import (
 	orduc "github.com/nydan/glean/internal/usecase/order"
 	"github.com/nydan/glean/pkg/database"
 	"github.com/nydan/glean/pkg/database/sqldb"
+	"github.com/nydan/glean/pkg/redis"
+	"github.com/nydan/glean/pkg/redis/goredis"
 )
 
 // HTTPServer initializes all dependencies for HTTP server.
 // The initialization that happen here are related to HTTP API.
 func HTTPServer(cfg config.Config) error {
 	db := connectDB(cfg.Database)
+	rds := connectRedis(cfg.Redis)
 
-	orderRp := ordrp.Order(db)
+	orderRp := ordrp.Order(db, rds)
 
 	orderUc := orduc.Order(orderRp)
 
@@ -54,4 +57,14 @@ func connectDB(cfg config.Database) database.Database {
 	}
 
 	return wrappedDB
+}
+
+func connectRedis(cfg config.Redis) redis.Redis {
+	return goredis.Connect(goredis.Config{
+		Addr:        cfg.Endpoint,
+		Timeout:     cfg.Timeout,
+		ReadTimeout: cfg.ReadTimeout,
+		PoolSize:    cfg.PoolSize,
+		MinIdleConn: cfg.MinIdle,
+	})
 }

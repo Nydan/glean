@@ -48,9 +48,11 @@ type (
 
 	// Redis configurations
 	Redis struct {
-		Endpoint string
-		Timeout  int
-		MaxIdle  int
+		Endpoint    string
+		Timeout     int
+		ReadTimeout int
+		MinIdle     int
+		PoolSize    int
 	}
 )
 
