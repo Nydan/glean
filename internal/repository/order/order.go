@@ -1,17 +1,17 @@
 package order
 
 import (
-	"github.com/jmoiron/sqlx"
 	"github.com/nydan/glean/internal/entity/order"
+	"github.com/nydan/glean/pkg/database"
 )
 
 // Repository for order
 type Repository struct {
-	db *sqlx.DB
+	db database.Database
 }
 
 // Order adds dependencies to order Repository
-func Order(db *sqlx.DB) *Repository {
+func Order(db database.Database) *Repository {
 	return &Repository{
 		db: db,
 	}

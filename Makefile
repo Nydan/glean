@@ -23,7 +23,7 @@ M = $(shell printf "\033[34;1m▶\033[0m")
 export GO111MODULE=on
 
 .PHONY: run
-run: all ; $(info $(M) running build in local with docker for dependencies..) @ ## Run newly build binary
+run: docker | all ; $(info $(M) running build in local with docker for dependencies..) @ ## Run newly build binary
 	$Q ./bin/$(PROJECTNAME)
 
 .PHONY: all
