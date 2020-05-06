@@ -40,12 +40,14 @@ type SomeType struct {
 }
 
 // Something creates SomeType struct and injecting the dependencies to it. 
+// With this, the Something func don't have to know how abstract being implemented.
 func Something(a abstract) *SomeType {
     return &SomeType{
          dependencyOne: a,
     }
 }
-// Do is method from the concrete type
+
+// Do is method from the concrete type that call a method from abstraction.
 func (s *SomeType) Do() error {
     return s.dependencyOne.AbstractMethod(1, "a")
 }
