@@ -2,10 +2,9 @@ package logger
 
 import "errors"
 
-// A global variable so that log functions can be directly accessed
 var log Logger
 
-// Fields Type to pass when we want to call WithFields for structured logging
+// Fields defines key value pair for structured logging when usig WithFields method.
 type Fields map[string]interface{}
 
 const (
@@ -46,26 +45,9 @@ type Logger interface {
 	WithFields(keyValues Fields) Logger
 }
 
-// Configuration stores the config for the logger
-// For some loggers there can only be one level across writers, for such the level of Console is picked by default
-type Configuration struct {
-	EnableConsole     bool
-	ConsoleJSONFormat bool
-	ConsoleLevel      string
-	EnableFile        bool
-	FileJSONFormat    bool
-	FileLevel         string
-	FileLocation      string
-}
-
-// GetInstance get logger instance
-func GetInstance() Logger {
-	return log
-}
-
 // NewLogger returns an instance of logger
-func NewLogger(config Configuration) {
-	log = newZapLogger(config)
+func NewLogger(l Logger) {
+	log = l
 }
 
 // Debugf debug format

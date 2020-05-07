@@ -7,6 +7,7 @@ import (
 	"github.com/nydan/glean/internal/config"
 	"github.com/nydan/glean/internal/environment"
 	"github.com/nydan/glean/pkg/logger"
+	"github.com/nydan/glean/pkg/logger/zap"
 )
 
 func main() {
@@ -20,7 +21,8 @@ func main() {
 		panic("Failed to read config: " + err.Error())
 	}
 
-	logger.NewLogger((logger.Configuration)(cfg.Logger))
+	log := zap.NewLogger((zap.Config)(cfg.Logger))
+	logger.NewLogger(log)
 
 	err = app.HTTPServer(*cfg)
 	if err != nil {

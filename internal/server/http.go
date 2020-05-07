@@ -20,7 +20,7 @@ type HTTPServerI interface {
 }
 
 type httpServer struct {
-	srv  http.Server
+	srv  *http.Server
 	ctrl *httpctrl.Controller
 }
 
@@ -31,7 +31,7 @@ func NewHTTPServer(cfg config.HTTPServer, ctrl *httpctrl.Controller) HTTPServerI
 		Handler: router(ctrl),
 	}
 	return &httpServer{
-		srv: srv,
+		srv: &srv,
 	}
 }
 
