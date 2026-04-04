@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/nydan/glean/internal/entity/order"
-	"github.com/pkg/errors"
 )
 
 type orderRepoI interface {
@@ -37,7 +36,7 @@ func (uc *Usecase) Select(id int) (order.Order, error) {
 
 	ord, err := uc.ord.SelectOrderByID(id)
 	if err != nil {
-		return ord, errors.Wrap(err, "SelectOrderByID")
+		return ord, fmt.Errorf("SelectOrderByID: %w", err)
 	}
 
 	return ord, nil
