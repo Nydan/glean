@@ -1,5 +1,5 @@
 # Glean
-Glean is a web server sample for an app server with Go.
+Glean is a web server sample for an app server with Go. Requires **Go 1.26+**.
 
 This code structure aims for a structure that:
 1. Easy to maintain perpetually.
@@ -47,6 +47,15 @@ redis connection, or http client instance.
 ## pkg
 This folder is containing any helper package that you made. The helper/wrapper in this `pkg` is not placed inside `internal` 
 with the purpose to made all the packages here are reusable by the other project. So the helper package that you made suppose to be standalone here.
+
+# Logging
+This project uses the standard library `log/slog` for structured logging. Logs are written to stdout in JSON format by default (configurable to text via the `Format` config field). There is no in-app log rotation — log collection and rotation should be handled by infrastructure (e.g. Kubernetes, systemd, Docker).
+
+# Error Handling
+Error wrapping uses the standard library `fmt.Errorf` with the `%w` verb, enabling `errors.Is` and `errors.As` for error inspection.
+
+# Testing
+Tests should use `google/go-cmp` for value comparisons rather than third-party assertion libraries.
 
 # Common Pattern
 Controller layer and usecase layer has a common pattern in this project structure. It has a struct (concrete type) and 
