@@ -6,10 +6,8 @@ HTTPServer:
   WriteTimeout: "5m"
   IdleTimeout: "15m"
 Logger:
-  EnableConsole: true
-  ConsoleJSONFormat: true
-  ConsoleLevel: "debug"
-  EnableFile: false
+  Level: "debug"
+  Format: "json"
 Database:
   Master: "user=glean password=qwerty dbname=glean_dev host=localhost port=5432 sslmode=disable"
   Replica: "user=glean password=qwerty dbname=glean_dev host=localhost port=5432 sslmode=disable"

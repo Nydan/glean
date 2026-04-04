@@ -3,6 +3,7 @@ package server
 import (
 	"context"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"os"
 	"os/signal"
@@ -11,7 +12,6 @@ import (
 
 	"github.com/nydan/glean/internal/config"
 	httpctrl "github.com/nydan/glean/internal/controller/http"
-	"github.com/nydan/glean/pkg/logger"
 )
 
 // HTTPServerI is interface to wrap http server library
@@ -51,19 +51,19 @@ func (h *httpServer) RunHTTP() error {
 		// We received an os signal, shut down.
 		if err := h.srv.Shutdown(ctx); err != nil {
 			// Error from closing listeners, or context timeout:
-			logger.Errorw("HTTP Server shutting down", "error", err)
+			slog.Error("HTTP Server shutting down", "error", err)
 		}
 
 		close(done)
 	}()
 
-	logger.Infow("HTTP server running on ", "address", h.srv.Addr)
+	slog.Info("HTTP server running on", "address", h.srv.Addr)
 	if err := h.srv.ListenAndServe(); err != http.ErrServerClosed {
 		return err
 	}
 
 	<-done
 
-	logger.Infow("HTTP server shutdown gracefully")
+	slog.Info("HTTP server shutdown gracefully")
 	return nil
 }

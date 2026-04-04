@@ -2,10 +2,10 @@ package order
 
 import (
 	"encoding/json"
+	"log/slog"
 	"net/http"
 
 	"github.com/nydan/glean/internal/entity/order"
-	"github.com/nydan/glean/pkg/logger"
 )
 
 type orderUseCase interface {
@@ -39,7 +39,7 @@ func (c *Controller) Create() http.HandlerFunc {
 
 		buf, err := json.Marshal(resp)
 		if err != nil {
-			logger.Errorw("failed marshal", "error", err)
+			slog.Error("failed marshal", "error", err)
 			w.WriteHeader(http.StatusInternalServerError)
 		}
 
