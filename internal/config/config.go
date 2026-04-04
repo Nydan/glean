@@ -31,13 +31,8 @@ type (
 
 	// Logger logging setting
 	Logger struct {
-		EnableConsole     bool
-		ConsoleJSONFormat bool
-		ConsoleLevel      string
-		EnableFile        bool
-		FileJSONFormat    bool
-		FileLevel         string
-		FileLocation      string
+		Level  string `mapstructure:"level"`
+		Format string `mapstructure:"format"` // "json" or "text", default "json"
 	}
 
 	// Database configurations

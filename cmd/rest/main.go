@@ -21,9 +21,14 @@ func main() {
 		panic("Failed to read config: " + err.Error())
 	}
 
-	slog.SetDefault(slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
-		Level: parseLogLevel(cfg.Logger.ConsoleLevel),
-	})))
+	var handler slog.Handler
+	opts := &slog.HandlerOptions{Level: parseLogLevel(cfg.Logger.Level)}
+	if cfg.Logger.Format == "text" {
+		handler = slog.NewTextHandler(os.Stdout, opts)
+	} else {
+		handler = slog.NewJSONHandler(os.Stdout, opts)
+	}
+	slog.SetDefault(slog.New(handler))
 
 	err = app.HTTPServer(*cfg)
 	if err != nil {
